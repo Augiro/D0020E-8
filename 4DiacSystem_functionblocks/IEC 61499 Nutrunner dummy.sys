@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE System SYSTEM "http://www.holobloc.com/xml/LibraryElement.dtd">
+<System Name="Nutrunner">
+  <VersionInfo Author="Author" Organization="4DIAC-Consortium" Version="1.0"/>
+  <Application Name="end2end">
+    <SubAppNetwork>
+      <FB Name="openCom" Type="openCom" x="2945.0" y="1615.0"/>
+      <FB Name="JobNotificationInterface" Type="JobNotificationInterface" x="3800.0" y="1615.0"/>
+      <FB Name="jobServiceInterface" Type="jobServiceInterface" x="2090.0" y="1615.0"/>
+      <EventConnections>
+        <Connection Destination="JobNotificationInterface.REQ" Source="openCom.CNF" dx1="0.0" dx2="0.0" dy="0.0"/>
+        <Connection Destination="JobNotificationInterface.INIT" Source="openCom.INITO" dx1="0.0" dx2="0.0" dy="0.0"/>
+        <Connection Destination="openCom.INIT" Source="jobServiceInterface.INITO" dx1="0.0" dx2="0.0" dy="0.0"/>
+        <Connection Destination="openCom.REQ" Source="jobServiceInterface.CNF" dx1="0.0" dx2="0.0" dy="0.0"/>
+      </EventConnections>
+      <DataConnections>
+        <Connection Destination="JobNotificationInterface.QI" Source="openCom.QO" dx1="0.0" dx2="0.0" dy="0.0"/>
+        <Connection Destination="JobNotificationInterface.NRjob" Source="openCom.NRjob" dx1="0.0" dx2="0.0" dy="0.0"/>
+        <Connection Destination="openCom.QI" Source="jobServiceInterface.QO" dx1="0.0" dx2="0.0" dy="0.0"/>
+        <Connection Destination="openCom.SYSXjob" Source="jobServiceInterface.nrJob" dx1="0.0" dx2="0.0" dy="0.0"/>
+      </DataConnections>
+    </SubAppNetwork>
+  </Application>
+  <Device Name="FORTE_PC" Type="FORTE_PC" x="3260.0" y="895.0">
+    <Attribute Name="Color" Value="159,195,31"/>
+    <Attribute Name="Profile" Value="HOLOBLOC"/>
+    <Parameter Name="MGR_ID" Value="&quot;localhost:61499&quot;"/>
+    <Resource Name="EMB_RES" Type="EMB_RES">
+      <FBNetwork>
+        <FB Name="jobServiceInterface" Type="jobServiceInterface" x="2090.0" y="1615.0"/>
+        <FB Name="openCom" Type="openCom" x="2945.0" y="1615.0"/>
+        <FB Name="JobNotificationInterface" Type="JobNotificationInterface" x="3800.0" y="1615.0"/>
+        <EventConnections>
+          <Connection Destination="openCom.INIT" Source="jobServiceInterface.INITO" dx1="0.0" dx2="0.0" dy="0.0"/>
+          <Connection Destination="openCom.REQ" Source="jobServiceInterface.CNF" dx1="0.0" dx2="0.0" dy="0.0"/>
+          <Connection Destination="JobNotificationInterface.INIT" Source="openCom.INITO" dx1="0.0" dx2="0.0" dy="0.0"/>
+          <Connection Destination="JobNotificationInterface.REQ" Source="openCom.CNF" dx1="0.0" dx2="0.0" dy="0.0"/>
+        </EventConnections>
+        <DataConnections>
+          <Connection Destination="openCom.QI" Source="jobServiceInterface.QO" dx1="0.0" dx2="0.0" dy="0.0"/>
+          <Connection Destination="openCom.SYSXjob" Source="jobServiceInterface.nrJob" dx1="0.0" dx2="0.0" dy="0.0"/>
+          <Connection Destination="JobNotificationInterface.QI" Source="openCom.QO" dx1="0.0" dx2="0.0" dy="0.0"/>
+          <Connection Destination="JobNotificationInterface.NRjob" Source="openCom.NRjob" dx1="0.0" dx2="0.0" dy="0.0"/>
+        </DataConnections>
+      </FBNetwork>
+    </Resource>
+  </Device>
+  <Mapping From="end2end.openCom" To="FORTE_PC.EMB_RES.openCom"/>
+  <Mapping From="end2end.JobNotificationInterface" To="FORTE_PC.EMB_RES.JobNotificationInterface"/>
+  <Mapping From="end2end.jobServiceInterface" To="FORTE_PC.EMB_RES.jobServiceInterface"/>
+</System>
