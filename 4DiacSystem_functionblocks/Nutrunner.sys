@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE System SYSTEM "http://www.holobloc.com/xml/LibraryElement.dtd">
+<System Name="Nutrunner">
+  <VersionInfo Author="Author" Organization="4DIAC-Consortium" Version="1.0"/>
+  <Application Name="end2end">
+    <SubAppNetwork>
+      <FB Name="openCom" Type="openCom" x="2850.0" y="760.0"/>
+      <FB Name="SUBSCRIBE_1" Type="SUBSCRIBE_1" x="475.0" y="855.0">
+        <Parameter Name="QI" Value="TRUE"/>
+        <Parameter Name="ID" Value="raw[].mqtt[tcp://130.240.5.130:1883,4diac,jobs]"/>
+      </FB>
+      <FB Name="PUBLISH_1" Type="PUBLISH_1" x="4560.0" y="1520.0">
+        <Parameter Name="ID" Value="raw[].mqtt[tcp://130.240.5.130:1883,4diac,jobs]"/>
+      </FB>
+      <FB Name="JobNotificationInterface" Type="JobNotificationInterface" x="3705.0" y="760.0"/>
+      <FB Name="jobServiceInterface" Type="jobServiceInterface" x="1710.0" y="760.0"/>
+      <EventConnections>
+        <Connection Destination="jobServiceInterface.INIT" Source="SUBSCRIBE_1.INITO" dx1="0.0" dx2="0.0" dy="0.0"/>
+        <Connection Destination="jobServiceInterface.REQ" Source="SUBSCRIBE_1.IND" dx1="0.0" dx2="0.0" dy="0.0"/>
+        <Connection Destination="openCom.INIT" Source="jobServiceInterface.INITO" dx1="0.0" dx2="0.0" dy="0.0"/>
+        <Connection Destination="openCom.REQ" Source="jobServiceInterface.CNF" dx1="0.0" dx2="0.0" dy="0.0"/>
+        <Connection Destination="JobNotificationInterface.INIT" Source="openCom.INITO" dx1="0.0" dx2="0.0" dy="0.0"/>
+        <Connection Destination="PUBLISH_1.INIT" Source="JobNotificationInterface.INITO" dx1="0.0" dx2="0.0" dy="0.0"/>
+        <Connection Destination="PUBLISH_1.REQ" Source="JobNotificationInterface.CNF" dx1="0.0" dx2="0.0" dy="0.0"/>
+        <Connection Destination="JobNotificationInterface.REQ" Source="openCom.CNF" dx1="0.0" dx2="0.0" dy="0.0"/>
+      </EventConnections>
+      <DataConnections>
+        <Connection Destination="jobServiceInterface.QI" Source="SUBSCRIBE_1.QO" dx1="0.0" dx2="0.0" dy="0.0"/>
+        <Connection Destination="jobServiceInterface.rd_1" Source="SUBSCRIBE_1.RD_1" dx1="0.0" dx2="0.0" dy="0.0"/>
+        <Connection Destination="openCom.SYSXjob" Source="jobServiceInterface.nrJob" dx1="0.0" dx2="0.0" dy="0.0"/>
+        <Connection Destination="openCom.QI" Source="jobServiceInterface.QO" dx1="0.0" dx2="0.0" dy="0.0"/>
+        <Connection Destination="JobNotificationInterface.QI" Source="openCom.QO" dx1="0.0" dx2="0.0" dy="0.0"/>
+        <Connection Destination="JobNotificationInterface.NRjob" Source="openCom.NRjob" dx1="0.0" dx2="0.0" dy="0.0"/>
+        <Connection Destination="PUBLISH_1.QI" Source="JobNotificationInterface.QO" dx1="0.0" dx2="0.0" dy="0.0"/>
+        <Connection Destination="PUBLISH_1.SD_1" Source="JobNotificationInterface.sd_1" dx1="0.0" dx2="0.0" dy="0.0"/>
+      </DataConnections>
+    </SubAppNetwork>
+  </Application>
+  <Device Name="BeagleBoneBlack" Type="BeagleBoneBlack" x="3760.0" y="2035.0">
+    <Attribute Name="Color" Value="59,230,58"/>
+    <Attribute Name="Profile" Value="HOLOBLOC"/>
+    <Parameter Name="MGR_ID" Value="&quot;192.168.7.2:61499&quot;"/>
+    <Resource Name="EMB_RES" Type="EMB_RES">
+      <FBNetwork>
+        <FB Name="openCom" Type="openCom" x="2660.0" y="855.0"/>
+        <FB Name="PUBLISH_1" Type="PUBLISH_1" x="4845.0" y="855.0">
+          <Parameter Name="ID" Value="raw[].mqtt[tcp://130.240.5.130:1883,4diac,jobs]"/>
+        </FB>
+        <FB Name="SUBSCRIBE_1" Type="SUBSCRIBE_1" x="475.0" y="855.0">
+          <Parameter Name="QI" Value="TRUE"/>
+          <Parameter Name="ID" Value="raw[].mqtt[tcp://130.240.5.130:1883,4diac,jobs]"/>
+        </FB>
+        <FB Name="jobServiceInterface" Type="jobServiceInterface" x="1805.0" y="855.0"/>
+        <FB Name="JobNotificationInterface" Type="JobNotificationInterface" x="3925.0" y="965.0"/>
+        <EventConnections>
+          <Connection Destination="jobServiceInterface.INIT" Source="SUBSCRIBE_1.INITO" dx1="0.0" dx2="0.0" dy="0.0"/>
+          <Connection Destination="jobServiceInterface.REQ" Source="SUBSCRIBE_1.IND" dx1="0.0" dx2="0.0" dy="0.0"/>
+          <Connection Destination="openCom.INIT" Source="jobServiceInterface.INITO" dx1="0.0" dx2="0.0" dy="0.0"/>
+          <Connection Destination="openCom.REQ" Source="jobServiceInterface.CNF" dx1="0.0" dx2="0.0" dy="0.0"/>
+          <Connection Destination="JobNotificationInterface.INIT" Source="openCom.INITO" dx1="0.0" dx2="0.0" dy="0.0"/>
+          <Connection Destination="PUBLISH_1.INIT" Source="JobNotificationInterface.INITO" dx1="0.0" dx2="0.0" dy="0.0"/>
+          <Connection Destination="PUBLISH_1.REQ" Source="JobNotificationInterface.CNF" dx1="0.0" dx2="0.0" dy="0.0"/>
+          <Connection Destination="JobNotificationInterface.REQ" Source="openCom.CNF" dx1="0.0" dx2="0.0" dy="0.0"/>
+        </EventConnections>
+        <DataConnections>
+          <Connection Destination="jobServiceInterface.QI" Source="SUBSCRIBE_1.QO" dx1="0.0" dx2="0.0" dy="0.0"/>
+          <Connection Destination="jobServiceInterface.rd_1" Source="SUBSCRIBE_1.RD_1" dx1="0.0" dx2="0.0" dy="0.0"/>
+          <Connection Destination="openCom.SYSXjob" Source="jobServiceInterface.nrJob" dx1="0.0" dx2="0.0" dy="0.0"/>
+          <Connection Destination="openCom.QI" Source="jobServiceInterface.QO" dx1="0.0" dx2="0.0" dy="0.0"/>
+          <Connection Destination="JobNotificationInterface.QI" Source="openCom.QO" dx1="0.0" dx2="0.0" dy="0.0"/>
+          <Connection Destination="JobNotificationInterface.NRjob" Source="openCom.NRjob" dx1="0.0" dx2="0.0" dy="0.0"/>
+          <Connection Destination="PUBLISH_1.QI" Source="JobNotificationInterface.QO" dx1="0.0" dx2="0.0" dy="0.0"/>
+          <Connection Destination="PUBLISH_1.SD_1" Source="JobNotificationInterface.sd_1" dx1="0.0" dx2="0.0" dy="0.0"/>
+        </DataConnections>
+      </FBNetwork>
+    </Resource>
+  </Device>
+  <Mapping From="end2end.openCom" To="BeagleBoneBlack.EMB_RES.openCom"/>
+  <Mapping From="end2end.SUBSCRIBE_1" To="BeagleBoneBlack.EMB_RES.SUBSCRIBE_1"/>
+  <Mapping From="end2end.PUBLISH_1" To="BeagleBoneBlack.EMB_RES.PUBLISH_1"/>
+  <Mapping From="end2end.JobNotificationInterface" To="BeagleBoneBlack.EMB_RES.JobNotificationInterface"/>
+  <Mapping From="end2end.jobServiceInterface" To="BeagleBoneBlack.EMB_RES.jobServiceInterface"/>
+  <Segment Name="Ethernet" Type="Ethernet" dx1="1500.0" x="2755.0" y="1140.0"/>
+  <Link CommResource="BeagleBoneBlack" Comment="" SegmentName="Ethernet"/>
+</System>
