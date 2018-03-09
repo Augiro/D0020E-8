@@ -1,0 +1,9 @@
+forte_add_sourcefile_hcpp(nr2sysxMessageConstruct)
+forte_add_sourcefile_hcpp(nr2sysxMessageDeconstruct)
+forte_add_sourcefile_hcpp(openCom)
+forte_add_sourcefile_hcpp(sysx2nrMessageConstruct)
+forte_add_sourcefile_hcpp(sysx2nrMessageDeconstruct)
+forte_add_sourcefile_hcpp(jobServiceInterface)
+forte_add_sourcefile_hcpp(JobNotificationInterface)
+
+
